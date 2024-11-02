@@ -16,16 +16,11 @@
                 Submit an image
             </Button>
         </div>
-        <div class="flex items-center w-[32px]">
-            <button class=" px-[4px] py-[3px] hover:cursor-pointer hover:filter hover:brightness-0 hover:contrast-100" >
-                <img src="/src/assets/notification-02-stroke-rounded.svg" alt="logo"  />
-            </button>
-            
+        <div class="flex items-center min-w-[32px]">
+            <NotifyDropdown />
         </div>
         <div class="flex items-center min-w-[32px]">
-            <button>
-                <img src="/src/assets/user-circle-stroke-rounded.svg" alt="avatar"  />
-            </button>
+            <UserDropdown />
         </div>
         <div class="flex items-center min-w-[46px]"> 
             <MenuDropdown />
@@ -34,7 +29,9 @@
 </template>
 
 <script setup lang="ts">
-import InputSearch from './input/InputSearch.vue';
+import InputSearch from './SearchComponent.vue';
 import { Button } from '@/components/ui/button'
-import MenuDropdown from '@/components/ui/menuDropdown.vue'
+import MenuDropdown from '@/components/ui/MenuDropdown.vue'
+import UserDropdown from './UserDropdown.vue';
+import NotifyDropdown from './NotifyDropdown.vue';
 </script>
