@@ -1,8 +1,9 @@
 <script setup lang="ts">
 import Toaster from "@/components/ui/toast/Toaster.vue";
-import HeaderComponent from "@/components/ui/HeaderComponent.vue";
+import HeaderComponent from "@/components/ui/headerComponent/HeaderComponent.vue";
 import { useRouter } from "vue-router";
 import HomeLinkComponent from "@/components/ui/HomeLinkComponent.vue";
+import ContentComponent from "@/components/ui/contentComponent/ContentComponent.vue";
 
 
 
@@ -17,6 +18,10 @@ console.log(router.currentRoute.value.fullPath);
     </header>
     <div class="flex w-full flex-col">
       <HomeLinkComponent></HomeLinkComponent>
+    </div>
+
+    <div class="flex w-full flex-col">
+      <ContentComponent></ContentComponent>
     </div>
     
     

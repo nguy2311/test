@@ -4,7 +4,7 @@
             <img src="/src/assets/development.png" alt="logo" class="h-auto w-[32px]" />
         </div>
         <div class ="w-3/4">
-            <InputSearch />
+            <InputSearch borderRadius="rounded-3xl"/>
         </div>
         <div class="flex items-center w-[130px]">
             <a class=" text-black hover:cursor-pointer min-w-[120px] font-medium text-sm px-[10px]">
@@ -29,9 +29,9 @@
 </template>
 
 <script setup lang="ts">
-import InputSearch from './SearchComponent.vue';
+import InputSearch from '../searchComponent/SearchComponent.vue';
 import { Button } from '@/components/ui/button'
-import MenuDropdown from '@/components/ui/MenuDropdown.vue'
-import UserDropdown from './UserDropdown.vue';
-import NotifyDropdown from './NotifyDropdown.vue';
+import MenuDropdown from '@/components/ui/dropDown/MenuDropdown.vue'
+import UserDropdown from '../dropDown/UserDropdown.vue';
+import NotifyDropdown from '../dropDown/NotifyDropdown.vue';
 </script>
