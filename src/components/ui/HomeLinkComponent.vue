@@ -1,12 +1,11 @@
 
 <script setup lang="ts">
 
-import { ref, onMounted } from 'vue'
+import { ref } from 'vue'
 
 const homelinkItems = ['3D Renders', 'Wallpapers', 'Nature', 'Archival', 'Travel', 'Architecture & Interiors', 
   'Business & Work', 'Experimental', 'Film', 'Street Photography', 'Textures & Patterns', 'Fashion & Beauty',
   'Health & Wellness', 'Animals', 'Food & Drink', 'People', 'Spirituality', 'Business & Work', 'Sports', 'Current Events']
-const homelinkUrls= ['/', '/', '/', '/']
 
 const navScroll = ref<HTMLElement | null>(null);
 
@@ -50,7 +49,8 @@ const scrollRight = () => {
 
         <div ref="navScroll" class="flex space-x-6 overflow-x-auto scrollbar-hide scroll-smooth">
           <span v-for="(link, index) in homelinkItems" :key="index"
-            class="cursor-pointer text-gray-600 hover:text-black whitespace-nowrap gap-[24px]">
+            class="cursor-pointer text-gray-600 hover:text-black whitespace-nowrap gap-[24px]"
+            @click="">
             {{ link }}
           </span>
         </div>
