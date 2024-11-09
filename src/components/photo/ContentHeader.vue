@@ -1,6 +1,17 @@
 <script setup lang="ts">
-import InputSearch from '../searchComponent/SearchComponent.vue';
+import InputSearch from '@/components/searchComponent/SearchComponent.vue';
 import ColectionItems from './ColectionItems.vue';
+import { ref, defineEmits } from 'vue';
+
+
+const emit = defineEmits<{
+  (e: 'search', value: string): void;
+}>();
+
+const onSearch = (value: string) => {
+  emit('search', value); 
+}
+
 </script>
 
 <template>
@@ -10,7 +21,7 @@ import ColectionItems from './ColectionItems.vue';
             <p class="text-gray-600">The internet’s source for visuals</p>
             <p class="text-gray-600">Powered by creators everywhere.</p>
             <div class="mt-4">
-                <InputSearch />
+                <InputSearch @search="onSearch"/>
             </div>
         </div>
 

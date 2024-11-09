@@ -1,9 +1,12 @@
 <script setup lang="ts">
 import Toaster from "@/components/ui/toast/Toaster.vue";
+import DefaultLayout from "./components/DefaultLayout.vue";
 </script>
 
 <template>
-  <RouterView class="bg-background-main h-full w-full" />
+  <div class="bg-background-main h-full w-full">
+    <DefaultLayout></DefaultLayout>
+  </div>
   
   <Toaster />
 </template>

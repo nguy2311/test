@@ -1,16 +1,6 @@
 export interface Image {
     "id": string;
     "slug": string;
-    "alternative_slugs": {
-        "en": string;
-        "es": string;
-        "ja": string;
-        "fr": string;
-        "it": string;
-        "ko": string;
-        "de": string;
-        "pt": string;
-    },
     "created_at": string;
     "updated_at": string;
     "promoted_at": string;
@@ -91,7 +81,85 @@ export interface Image {
     }
 }
 
-export interface ImagePaginationResponse{
-    total_photos: number;
-    data: Image[];
+export interface ImageDetails {
+    id: string;
+    slug: string;
+    width: number;
+    height: number;
+    color: string;
+    blur_hash: string;
+    description: string;
+    alt_description: string;
+    urls: {
+      raw: string;
+    };
+    likes: number;
+    liked_by_user: boolean;
+    current_user_collections: any[];
+    sponsorship: null | object;
+    topic_submissions: {
+      travel?: {
+        status: string;
+        approved_on: string;
+      };
+      wallpapers?: {
+        status: string;
+        approved_on: string;
+      };
+    };
+    asset_type: string;
+    user: {
+      id: string;
+      username: string;
+      name: string;
+      portfolio_url: string;
+      bio: string;
+      location: string;
+      profile_image: {
+        small: string;
+        medium: string;
+        large: string;
+      };
+      instagram_username: string;
+      accepted_tos: boolean;
+      for_hire: boolean;
+      social: {
+        instagram_username: string;
+        portfolio_url: string;
+        twitter_username: string | null;
+        paypal_email: string | null;
+      };
+    };
+    location: {
+      name: string;
+      city: string | null;
+      country: string;
+      position: {
+        latitude: number;
+        longitude: number;
+      };
+    };
+    meta: {
+      index: boolean;
+    };
+    public_domain: boolean;
+    tags: {
+      type: string;
+      title: string;
+    }[];
+    views: number;
+    downloads: number;
+    topics: {
+      id: string;
+      title: string;
+      slug: string;
+      visibility: string;
+    }[];
+  }
+  
+
+export interface ImageSearchResponse{
+    results: Image[];
+    total: number;
+    total_pages: number;
 }

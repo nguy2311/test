@@ -1,8 +1,6 @@
-import {BaseResponseServer} from '../model/response'
-import {Image} from '../model/image'
+
+import {Image, ImageSearchResponse, ImageDetails} from '../model/image'
 import axios from "axios";
-import {listPhotoAPI} from "./base";
-import { handleBaseResponseServer } from "./response";
 export interface fetchPhotosParam {
     page: number,
     size: number,
@@ -10,25 +8,79 @@ export interface fetchPhotosParam {
     order_by?: string,
     collections?: string,
     orientation?: string,
-    client_id: string
+}
+const client_id = '1pLUy5DMN19cEHmGfGH_XK13LY_7KDJo_zCz8xGV3G8';
+
+export const fetchPhotos = async (params: fetchPhotosParam): Promise<Array<Image>> => {
+    try {
+        const queryParam = {
+            page: params.page,
+            per_page: params.size,
+        };
+
+
+        const response = await axios.get<Image[]>(
+            'https://api.unsplash.com/photos',
+            {
+                params: queryParam,
+                headers: {
+                    Authorization: `Client-ID ${client_id}`
+                },
+                validateStatus: () => true
+            }
+        );
+        return response.data;
+    } catch (error) {
+        throw new Error(`Failed to fetch credentials: ${error}`);
+    }
 }
 
-const pagination = async (params: fetchPhotosParam) : Promise<BaseResponseServer<Array<Image> | null>> => {
-    const { page = 1, size = 12, client_id ='1pLUy5DMN19cEHmGfGH_XK13LY_7KDJo_zCz8xGV3G8' } = params;
-    const queryParam = {
-        page,
-        per_page: size,
-        client_id,
-        query: params.query,
-        order_by: params.order_by,
-        collections: params.collections,
-        orientation: params.orientation
-    };
+export const fetchDetail = async (slug: string): Promise<ImageDetails> => {
+    try {
+        const response = await axios.get<ImageDetails>(
+            `https://api.unsplash.com/photos/${slug}`,
+            {
+                headers: {
+                    Authorization: `Client-ID ${client_id}`
+                },
+                validateStatus: () => true
+            }
+        );
+        return response.data;
+    } catch (error) {
+        throw new Error(`Failed to fetch credentials: ${error}`);
+    }
+}
 
-    const res = await axios.get(listPhotoAPI, { params: queryParam });
-    return handleBaseResponseServer(res);
+export const searchPhotos = async (params: fetchPhotosParam): Promise<ImageSearchResponse> => {
+    try {
+        const queryParam = {
+            page: params.page,
+            per_page: params.size,
+            query: params.query,
+            order_by: params.order_by,
+            collections: params.collections,
+            orientation: params.orientation
+        };
+
+
+        const response = await axios.get<ImageSearchResponse>(
+            'https://api.unsplash.com/search/photos',
+            {
+                params: queryParam,
+                headers: {
+                    Authorization: `Client-ID ${client_id}`
+                },
+                validateStatus: () => true
+            }
+        );
+        return response.data;
+    } catch (error) {
+        throw new Error(`Failed to fetch credentials: ${error}`);
+    }
 }
 
 export const PhotoAPI={
-    pagination
+    fetchPhotos,
+    searchPhotos
 }
