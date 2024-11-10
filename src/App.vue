@@ -7,6 +7,6 @@ import DefaultLayout from "./components/DefaultLayout.vue";
   <div class="bg-background-main h-full w-full">
     <DefaultLayout></DefaultLayout>
   </div>
-  
+
   <Toaster />
 </template>
