@@ -7,6 +7,7 @@ import {
 } from '@/components/ui/dialog'
 import { ref, watch } from 'vue';
 import { fetchDetail } from '@/api/photo';
+import DetailsComponent from './DetailsComponent.vue';
 
 const isDialogOpen = ref(false);
 
@@ -30,7 +31,6 @@ const fetchData = async () => {
     console.error('Error fetching photos:', error);
   } 
 };
-
 
 
 
@@ -78,44 +78,9 @@ watch(isDialogOpen, (newVal) => {
         </div>
       </div>
 
-      <DialogContent class="custom-dialog-content p-6 h-[98%] bg-white rounded-lg overflow-y-auto">
-        <DialogHeader>
-          <div class="m-h-[40px] gap-[8px] flex items-center justify-between">
-            <div class="w-3/4 flex items-center space-x-2">
-              <div class="w-8 h-8 bg-gray-200 rounded-full overflow-hidden flex items-center justify-center">
-                <img v-if="props.data.user.profile_image.large" :src="props.data.user.profile_image.large" :alt="props.data.user.name">
-                <img v-else src="/src/assets/user-circle-stroke-rounded.svg" :alt="props.data.user.name">
-              </div>
-              <DialogTitle class="text-black text-[15px] font-medium">{{ props.data.user.name }}</DialogTitle>
-            </div>
-            <div class="w-1/4 flex items-center justify-end">
-
-            </div>
-          </div>
-        </DialogHeader>
-        <div class="w-full h-[75vh] flex items-center justify-center">
-          <img 
-            :src="props.data.urls.regular" 
-            :alt="props.data.alt_description" 
-            class="w-auto h-full object-contain rounded-md"
-          />
-        </div>
-        <div class="h-[44px] gap-[24px] flex items-center justify-between">
-          <div class="flex items-center gap-[24px] ">
-            <div class="w-[15vh]">
-              <p class="text-[#767676] text-[14px] font-medium">Views</p>
-              <p>{{ detailPhoto.views }}</p>
-            </div>
-            <div class="w-[15vh]">
-              <p class="text-[#767676] text-[14px] font-medium">Download</p>
-              <p>{{ detailPhoto.downloads }}</p>
-            </div>
-            <div v-if="topics" class="w-[50vh] m-w[15vh]">
-              <p class="text-[#767676] text-[14px] font-medium">Featured in</p>
-              <p>{{ topics }}</p>
-            </div>
-          </div>
-        </div>
+      <DialogContent
+          class="custom-dialog-content p-6 h-[98%] bg-white rounded-lg overflow-y-auto">
+        <DetailsComponent :isOpen="isDialogOpen" :data="props.data" :detailPhoto="detailPhoto" :topics="topics" />
       </DialogContent>
     </Dialog>
   </div>

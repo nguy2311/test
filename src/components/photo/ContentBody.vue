@@ -9,11 +9,13 @@
 <script setup lang="ts">
 import { ref, defineProps, onMounted, onUnmounted, watch } from 'vue';
 import ImageItem from './ImageItem.vue';
-import { fetchPhotos, searchPhotos } from '@/api/photo';
+import { fetchPhotos, fetchPhotosTopic, searchPhotos } from '@/api/photo';
 import type { Image } from '@/model/image';
 
 const props = defineProps<{
   searchQuery: string;
+  type : string;
+  topic?: string;
 }>();
 
 const scrollComponent = ref(null);
@@ -41,7 +43,8 @@ const fetchData = async () => {
   isFetching.value = true;
 
   try {
-    const response = query.value === '' 
+    if (props.type == "photo") {
+      const response = query.value === '' 
       ? await fetchPhotos({ page: page.value, size: 24 })
       : await searchPhotos({ query: query.value, page: page.value, size: 24 }).then(res => res.results);
 
@@ -52,6 +55,20 @@ const fetchData = async () => {
       
       updateColumnHeight(columnIndex, image);
     });
+    }
+    else {
+      const response = query.value === '' 
+        ? await fetchPhotosTopic({ page: page.value, size: 24, topic: props.topic })
+        : await searchPhotos({ query: query.value, page: page.value, size: 24 }).then(res => res.results);
+
+      response.forEach((image) => {
+        const columnIndex = getMinHeightColumn();
+        
+        columns.value[columnIndex].push(image);
+        
+        updateColumnHeight(columnIndex, image);
+      });
+    }
 
     page.value++;
   } catch (error) {
@@ -80,6 +97,13 @@ const handleScroll = () => {
     fetchData(); 
   });
   
+  watch(()=> props.topic, (newTopic) => {
+    page.value = 1;
+    images.value = [];
+    columns.value = [[], [], []]; 
+    fetchData(); 
+  });
+
   onMounted(() => {
     fetchData(); 
     window.addEventListener('scroll', handleScroll);

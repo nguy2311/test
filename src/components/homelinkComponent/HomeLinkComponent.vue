@@ -1,20 +1,19 @@
 
 <script setup lang="ts">
 
-import { ref } from 'vue'
+import { Topic } from '@/model/topic';
+import {  ref } from 'vue'
 import { useRouter } from 'vue-router'
 
-const homelinkItems = ['3D Renders', 'Wallpapers', 'Nature', 'Archival', 'Travel', 'Architecture & Interiors', 
-  'Business & Work', 'Experimental', 'Film', 'Street Photography', 'Textures & Patterns', 'Fashion & Beauty',
-  'Health & Wellness', 'Animals', 'Food & Drink', 'People', 'Spirituality', 'Business & Work', 'Sports', 'Current Events']
+const props = defineProps<{
+  topics: Topic[]
+}>();
 
-const homelinkUrls= ['/topic/3d-render', '/topic/wallpapers', '/topic/nature', '/topic/archival', '/topic/travel', '/topic/architecture-interiors', 
-  '/topic/business-work', '/topic/experimental', '/topic/film', '/topic/street-photography', '/topic/textures-patterns', 
-  '/topic/fashion-beauty', '/topic/health-wellness', '/topic/animals', '/topic/food-drink', '/topic/people', '/topic/spirituality', 
-  '/topic/business-work', '/topic/sports', '/topic/current-events']
+
 
 const navScroll = ref<HTMLElement | null>(null);
 const type = ref('photo')
+
 
 const scrollLeft = () => {
   if (navScroll.value) {
@@ -38,9 +37,9 @@ const emit = defineEmits<{
   (e: 'choose', value: string): void;
 }>();
 
-const onChoose = (typeChoosen: string) => {
-  type.value = typeChoosen;
-  emit('choose', type.value); 
+const onChoose = (typeChosen: string ) => {
+  type.value = typeChosen;
+  emit('choose', type.value );  // Truyền cả type và topic
   switch (type.value) {
     case 'photo':
       navigateTo('/');
@@ -49,7 +48,7 @@ const onChoose = (typeChoosen: string) => {
       navigateTo('/illustration');
       break;
     default:
-      navigateTo('/topic/' + type.value);
+      navigateTo('/topic');
   }
 };
 
@@ -88,14 +87,13 @@ function navigateTo(url: string) {
         </button>
 
         <div ref="navScroll" class="flex space-x-6 overflow-x-auto scrollbar-hide scroll-smooth">
-          <span v-for="(link, index) in homelinkItems" :key="index"
+          <span v-for="(topic, index) in props.topics" :key="topic.id"
             class="cursor-pointer text-gray-600 h-[56px] flex items-center hover:text-black whitespace-nowrap gap-[24px]"
-            :class="{ 'shadow-active text-[#111]': type === homelinkUrls[index] }"
-            @click="onChoose(homelinkUrls[index])">
-            {{ link }}
+            :class="{ 'shadow-active text-[#111]': type === topic.slug }"
+            @click="onChoose(topic.slug)">
+            {{ topic.title }}
           </span>
         </div>
-
         <button @click="scrollRight" class="h-full z-10 bg-white bg-opacity-80 hover:bg-opacity-100 px-2">
           <img src="/src/assets/arrow-right-01-stroke-rounded.svg" alt="arrow-right"
             class="hover:brightness-0 hover:contrast-100" />

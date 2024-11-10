@@ -93,6 +93,15 @@ export interface ImageDetails {
     urls: {
       raw: string;
     };
+    exif: {
+        make?: string;
+        model?: String;
+        name?: string;
+        exposure_time?: string;
+        aperture?: string;
+        focal_length?: string;
+        iso?: number;
+    },
     likes: number;
     liked_by_user: boolean;
     current_user_collections: any[];

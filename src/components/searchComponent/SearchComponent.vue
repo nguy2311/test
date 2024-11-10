@@ -20,7 +20,6 @@ const emit = defineEmits<{
 const onSearch = async () => {
   emit('search', searchTerm.value);
   await nextTick(); 
-  searchInput.value?.blur();
 };
 </script>
 

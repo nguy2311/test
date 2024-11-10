@@ -1,6 +1,6 @@
 import { createRouter, createWebHistory, RouteLocationNormalized } from "vue-router";
 import PhotoComponent from "./components/PhotoComponent.vue";
-import IllustrationsComponent from "./components/IllustrationsComponent.vue";
+
 
 const routes =[
     {
@@ -11,9 +11,18 @@ const routes =[
     },
     {
         path: "/illustration", 
-        component: IllustrationsComponent,
+        component: PhotoComponent,
         name: "illustrations",
         props: (route: RouteLocationNormalized) =>({searchQuery: route.query.searchQuery || ''})
+    },
+    {
+        path: "/topic", 
+        component: PhotoComponent,
+        name: "topic",
+        props: (route: RouteLocationNormalized) =>({
+            searchQuery: route.query.searchQuery || '',
+            topic: route.params.type
+        })
     }
 ]
 
