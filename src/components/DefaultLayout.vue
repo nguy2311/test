@@ -61,11 +61,11 @@ console.log(router.currentRoute.value.fullPath);
 </script>
 
 <template>
-  <div class=" w-full ">
-    <header class="flex w-full flex-col overflow-hidden">
+  <div class="sticky-container w-full ">
+    <header class="header-container flex w-full flex-col overflow-hidden">
       <HeaderComponent @search="handleSearch"></HeaderComponent>
     </header>
-    <div v-if="searchQuery == ''" class="flex w-full flex-col">
+    <div v-if="searchQuery == ''" class="home-link-container flex w-full flex-col">
       <HomeLinkComponent :topics @choose="handleChoose"></HomeLinkComponent>
     </div>
 
@@ -81,3 +81,26 @@ console.log(router.currentRoute.value.fullPath);
   </div>
   <Toaster />
 </template>
+
+<style>
+.sticky-container {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+.header-container {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  background-color: white;
+}
+
+
+.home-link-container {
+  position: sticky;
+  top: 62px; 
+  z-index: 9;
+  background-color: white;
+}
+</style>
