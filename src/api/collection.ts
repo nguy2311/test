@@ -7,7 +7,7 @@ export interface fetchPhotosParam {
 }
 const client_id = '1pLUy5DMN19cEHmGfGH_XK13LY_7KDJo_zCz8xGV3G8';
 
-export const fetchColections = async (params: fetchPhotosParam): Promise<Array<Collection>> => {
+export const fetchCollections = async (params: fetchPhotosParam): Promise<Array<Collection>> => {
     try {
         const queryParam = {
             page: params.page,
@@ -33,5 +33,5 @@ export const fetchColections = async (params: fetchPhotosParam): Promise<Array<C
 
 
 export const PhotoAPI={
-    fetchColections
+    fetchCollections
 }

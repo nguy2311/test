@@ -97,7 +97,7 @@ const handleScroll = () => {
     fetchData(); 
   });
   
-  watch(()=> props.topic, (newTopic) => {
+  watch(()=> props.topic, () => {
     page.value = 1;
     images.value = [];
     columns.value = [[], [], []]; 

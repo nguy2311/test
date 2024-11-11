@@ -1,9 +1,9 @@
 <script setup lang="ts">
 import InputSearch from '@/components/searchComponent/SearchComponent.vue';
-import ColectionItems from './ColectionItems.vue';
-import { ref, defineEmits, defineProps, watch } from 'vue';
-import { Button } from '@/components/ui/button'
+import { Button } from '@/components/ui/button';
 import { Topic } from '@/model/topic';
+import { defineEmits, defineProps } from 'vue';
+import ColectionItems from './ColectionItems.vue';
 import TopContributors from './TopContributors.vue';
 
 const props = defineProps<{

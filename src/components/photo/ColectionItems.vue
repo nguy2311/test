@@ -1,6 +1,6 @@
 
 <script setup lang="ts">
-import { fetchColections } from '@/api/collection';
+import { fetchCollections } from '@/api/collection';
 import CardItem from './ColectionItem.vue';
 import type { Collection } from '@/model/colection';
 import { onMounted, ref } from 'vue';
@@ -12,7 +12,7 @@ const fetchData = async () => {
   isFetching.value = true;
 
   try {
-    const response =   await fetchColections({ page: 1, size: 4 })
+    const response =   await fetchCollections({ page: 1, size: 4 })
     collection.value = response
   } catch (error) {
     console.error('Error fetching photos:', error);
