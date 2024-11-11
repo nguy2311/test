@@ -50,14 +50,17 @@ const formatDate = (input: string): string => {
                 </div>
             </div>
             <div class="text-[#767676] text-[14px]">
+                <div v-if="props.detailPhoto.location && props.detailPhoto.location.name" class="flex flex-row items-center gap-[8px]">
+                    <img src="/src/assets/location-01-stroke-rounded.svg" class="w-[16px] h-[16px]"/>
+                    <p>{{ props.detailPhoto.location.name }}</p>
+                </div>
                 <div class="flex flex-row items-center gap-[8px]">
                     <img src="/src/assets/calendar-03-stroke-rounded.svg" class="w-[16px] h-[16px]"/>
                     <p>Published on {{ formatDate(props.data.created_at) }}</p>
                 </div>
-                <div v-if="props.detailPhoto.exif" class="flex flex-row items-center gap-[8px]">
+                <div v-if="props.detailPhoto.exif && props.detailPhoto.exif.name" class="flex flex-row items-center gap-[8px]">
                     <img src="/src/assets/camera-01-stroke-rounded.svg" class="w-[16px] h-[16px]"/>
-                    <p v-if="props.detailPhoto.exif.name">{{ props.detailPhoto.exif.name }}</p>
-                    <p v-else>N/A</p>
+                    <p>{{ props.detailPhoto.exif.name }}</p>
                 </div>
             </div>
             <div class="flex flex-row items-left gap-[8px] flex-wrap">

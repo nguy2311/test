@@ -65,7 +65,7 @@ console.log(router.currentRoute.value.fullPath);
     <header class="flex w-full flex-col overflow-hidden">
       <HeaderComponent @search="handleSearch"></HeaderComponent>
     </header>
-    <div class="flex w-full flex-col">
+    <div v-if="searchQuery == ''" class="flex w-full flex-col">
       <HomeLinkComponent :topics @choose="handleChoose"></HomeLinkComponent>
     </div>
 
