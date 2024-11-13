@@ -1,6 +1,6 @@
 
-import {Illustration} from '../model/illustration'
 import axios from "axios";
+import { Illustration } from '../model/illustration';
 export interface fetchPhotosParam {
     page: number,
     size: number,
@@ -9,7 +9,7 @@ export interface fetchPhotosParam {
     collections?: string,
     orientation?: string,
 }
-const client_id = '1pLUy5DMN19cEHmGfGH_XK13LY_7KDJo_zCz8xGV3G8';
+
 
 export const fetchIllustrations = async (params: fetchPhotosParam): Promise<Array<Illustration>> => {
     try {

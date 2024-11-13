@@ -46,7 +46,7 @@ watch(isDialogOpen, (newVal) => {
     <Dialog v-model:open="isDialogOpen">
       <DialogTrigger as="button" class="w-full">
         <img
-          :src="props.data.urls.regular"
+          :src="props.data.urls.small_s3"
           :alt="props.data.alt_description"
           class="w-full object-cover cursor-pointer"
         />
@@ -65,7 +65,7 @@ watch(isDialogOpen, (newVal) => {
         <div class="flex items-center justify-between">
           <div class="flex items-center space-x-2">
             <div class="w-8 h-8 bg-gray-200 rounded-full overflow-hidden flex items-center justify-center">
-              <img v-if="props.data.user.profile_image.large" :src="props.data.user.profile_image.large" :alt="props.data.user.name">
+              <img v-if="props.data.user.profile_image.small" :src="props.data.user.profile_image.small" :alt="props.data.user.name">
               <img v-else src="/src/assets/user-circle-stroke-rounded.svg" :alt="props.data.user.name">
             </div>
             <div class="text-white">

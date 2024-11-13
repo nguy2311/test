@@ -1,3 +1,4 @@
+import { cn } from '@/lib/utils'
 import { cva, type VariantProps } from 'class-variance-authority'
 
 export { default as Button } from './Button.vue'
@@ -17,6 +18,7 @@ export const buttonVariants = cva(
           'bg-secondary text-secondary-foreground shadow-sm hover:bg-secondary/80',
         ghost: 'hover:bg-accent hover:text-accent-foreground',
         link: 'text-primary underline-offset-4 hover:underline',
+        unsplash: cn('flex-1 p-[14px] pb-[12px] text-center text-sm font-medium hover:text-black'),
       },
       size: {
         default: 'h-9 px-4 py-2',

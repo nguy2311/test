@@ -1,51 +1,50 @@
 <script setup lang="ts">
-import Toaster from "@/components/ui/toast/Toaster.vue";
-import HeaderComponent from "@/components/headerComponent/HeaderComponent.vue";
-import { useRouter } from "vue-router";
-import HomeLinkComponent from "@/components/homelinkComponent/HomeLinkComponent.vue";
-import { onMounted, ref,watch } from 'vue';
-import { Topic } from "@/model/topic";
 import { fetchTopics, getTopic } from "@/api/topic";
+import HeaderComponent from "@/components/headerComponent/HeaderComponent.vue";
+import HomeLinkComponent from "@/components/homelinkComponent/HomeLinkComponent.vue";
+import Toaster from "@/components/ui/toast/Toaster.vue";
+import { Topic } from "@/model/topic";
+import { useSearchStore } from "@/store/searchStore";
+import { onMounted, ref } from "vue";
+import { useRouter } from "vue-router";
 
+const searchStore = useSearchStore();
 
-const searchQuery = ref(''); 
-const type = ref('photo')
+const type = ref("photo");
 
-const handleSearch = (value: string) => {
-  searchQuery.value = value; 
-};
-const choosenTopic = ref<Topic | null>(null)
-
+const chosenTopic = ref<Topic | null>(null);
 
 const handleChoose = async (value: string) => {
+  if (isFetching.value) return;
   type.value = value;
-  if (type.value != "photo" && type.value != "illustration"){
-     if (isFetching.value) return;
-      isFetching.value = true;
-
-      try {
-        const response =   await getTopic(type.value)
-        choosenTopic.value = response
-      } catch (error) {
-        console.error('Error fetching photos:', error);
-      } finally {
-        isFetching.value = false;
-      }
+  if (type.value === "photo" || type.value === "illustration") {
+    return;
   }
-}
 
-const isFetching = ref<boolean>(false)
-const topics =ref<Array<Topic>>([])
+  isFetching.value = true;
+
+  try {
+    const response = await getTopic(type.value);
+    chosenTopic.value = response;
+  } catch (error) {
+    console.error("Error fetching photos:", error);
+  } finally {
+    isFetching.value = false;
+  }
+};
+
+const isFetching = ref<boolean>(false);
+const topics = ref<Array<Topic>>([]);
 
 const fetchData = async () => {
   if (isFetching.value) return;
   isFetching.value = true;
 
   try {
-    const response =   await fetchTopics()
-    topics.value = response
+    const response = await fetchTopics();
+    topics.value = response;
   } catch (error) {
-    console.error('Error fetching photos:', error);
+    console.error("Error fetching photos:", error);
   } finally {
     isFetching.value = false;
   }
@@ -53,31 +52,26 @@ const fetchData = async () => {
 
 onMounted(() => {
   fetchData();
-})
-
+});
 
 const router = useRouter();
 console.log(router.currentRoute.value.fullPath);
 </script>
 
 <template>
-  <div class="sticky-container w-full ">
-    <header class="header-container flex w-full flex-col overflow-hidden">
-      <HeaderComponent @search="handleSearch"></HeaderComponent>
-    </header>
-    <div v-if="searchQuery == ''" class="home-link-container flex w-full flex-col">
-      <HomeLinkComponent :topics @choose="handleChoose"></HomeLinkComponent>
-    </div>
+  <div class="sticky-container w-full">
+    <HeaderComponent> </HeaderComponent>
+    <HomeLinkComponent
+      v-if="searchStore.searchQuery == ''"
+      class="home-link-container flex w-full flex-col"
+      :topics="topics"
+      @choose="handleChoose"
+    >
+    </HomeLinkComponent>
 
-    <div class="flex w-full flex-col">
-      <RouterView v-slot="{ Component, route }">
-        <component :is="Component" :type="type" :topic="choosenTopic" :searchQuery="searchQuery" />
-      </RouterView>
-    </div>
-
-
-    
-    
+    <RouterView v-slot="{ Component }">
+      <component :is="Component" :type="type" :topic="chosenTopic" />
+    </RouterView>
   </div>
   <Toaster />
 </template>
@@ -96,10 +90,9 @@ console.log(router.currentRoute.value.fullPath);
   background-color: white;
 }
 
-
 .home-link-container {
   position: sticky;
-  top: 62px; 
+  top: 62px;
   z-index: 9;
   background-color: white;
 }

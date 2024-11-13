@@ -9,6 +9,7 @@ export interface Collection {
         "id": string;
         "urls": {
             "raw": string;
+            "small": string;
         },
         "alt_description": string;
     },
